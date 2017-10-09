@@ -51,10 +51,10 @@ describe.skip('Pending examples', () => {
   })
 })
 
-describe.skip('Component examples', () => {
+describe('Component examples', () => {
   it('sample', done => {
-    const source = readFile(`component/sample.vue.js`)
-    const target = readFile(`component/sample.vdom.js`)
+    const source = readFile(`../component/sample.vue.js`)
+    const target = readFile(`../component/sample.vdom.js`)
     execute(source).then($root => {
       delete $root.attr.listData
       expect($root).to.deep.equal(eval(`(${target})`))

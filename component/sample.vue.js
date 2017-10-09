@@ -5,9 +5,14 @@ var listData = [
   { type: 'A', title: 'Jerry' }
 ]
 
-var Child = {
+var Banner = {
   props: ['title'],
-  render: function (h) {
+  render (h) {
+    return h('text', [
+      '[------- ' + this.title + ' -------]'
+    ])
+  },
+  '@render' (h) {
     return h('text', {
       attrs: {
         '@isComponentRoot': true,
@@ -22,18 +27,18 @@ var Child = {
 
 new Vue({
   el: 'body',
-  components: { child: Child },
-  data: function () {
+  components: { banner: Banner },
+  data () {
     return {
       listData: listData
     }
   },
-  render: function (h) {
+  render (h) {
     return h('recycle-list', { appendAsTree: true, attrs: { append: "tree", listData: this.listData, templateKey: 'type', alias: 'item' } }, [
       h('cell-slot', { attrs: { templateType: 'A' } }, [
 
         // using the banner component
-        h('banner', { attrs: { kind: { '@binding': 'item.title' } } })
+        h('banner', { attrs: { title: { '@binding': 'item.title' } } })
       ])
     ])
   }

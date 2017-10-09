@@ -11,12 +11,11 @@
     children: [{
       type: 'text',
       attr: {
-        value: ['name: ', { '@binding': 'item.name' }]
-      }
-    }, {
-      type: 'text',
-      attr: {
-        value: ['(', { '@binding': 'item.kind' }, ')']
+        '@isComponentRoot': true,
+        '@componentProps': {
+          title: { '@binding': 'item.title' }
+        },
+        value: ['[------- ', { '@binding': 'title' }, ' -------]']
       }
     }]
   }]
