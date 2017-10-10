@@ -17,7 +17,7 @@ var Banner = {
       '[------- ' + this.title + ' -------]'
     ])
   },
-  '@render' (h, data) {
+  '@render' (h, attrs) {
     return h('text', {
       attrs: {
         '@isComponentRoot': true,
