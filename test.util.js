@@ -17,7 +17,7 @@ function omitUseless (object) {
   if (object !== null && typeof object === 'object') {
     delete object.ref
     for (const key in object) {
-      if (Object.keys(object[key] || {}).length < 1) {
+      if ((Object.keys(object[key] || {}).length < 1) && key.charAt(0) !== '@') {
         delete object[key]
       }
       omitUseless(object[key])

@@ -5,6 +5,11 @@ var listData = [
   { type: 'A', title: 'Jerry' }
 ]
 
+/*
+Compiled from:
+
+  <text>[------- {{title}} -------]</text>
+*/
 var Banner = {
   props: ['title'],
   render (h) {
@@ -12,12 +17,12 @@ var Banner = {
       '[------- ' + this.title + ' -------]'
     ])
   },
-  '@render' (h) {
+  '@render' (h, data) {
     return h('text', {
       attrs: {
         '@isComponentRoot': true,
         '@componentProps': {
-          title: this.title
+          title: attrs.title
         },
         value: ['[------- ', { '@binding': 'title' }, ' -------]']
       }
@@ -25,6 +30,15 @@ var Banner = {
   }
 }
 
+/*
+Compiled from:
+
+<recycle-list :list-data="listData" template-key="type">
+  <cell-slot template-type="A">
+    <banner title="item.title"></banner>
+  </cell-slot>
+</recycle-list>
+*/
 new Vue({
   el: 'body',
   components: { banner: Banner },
@@ -38,7 +52,10 @@ new Vue({
       h('cell-slot', { attrs: { templateType: 'A' } }, [
 
         // using the banner component
-        h('banner', { attrs: { title: { '@binding': 'item.title' } } })
+        h('banner', { attrs: {
+          '@isInRecycleList': true,
+          title: { '@binding': 'item.title' }
+        }})
       ])
     ])
   }
